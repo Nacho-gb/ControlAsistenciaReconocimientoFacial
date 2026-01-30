@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gimnasio - Control de Acceso</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>🏋️ Gimnasio Control</h1>
+            <p class="subtitle">Sistema de Acceso Facial</p>
+        </header>
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab('acceso')">Acceso</button>
+            <button class="tab-button" onclick="showTab('registro')">Nuevo Socio</button>
+            <button class="tab-button" onclick="showTab('salas')">Salas</button>
+        </div>
+        <!-- Tab: Acceso -->
+        <div id="tab-acceso" class="tab-content active">
+            <h2>Control de Acceso</h2>
+            <div class="camera-container">
+                <video id="video-acceso" autoplay playsinline></video>
+                <canvas id="canvas-acceso" style="display:none;"></canvas>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="iniciarCamara('acceso')">
+                    📷 Iniciar Cámara
+                </button>
+                <button class="btn btn-success" onclick="capturarAcceso('ENTRADA')">
+                    ✅ Registrar ENTRADA
+                </button>
+                <button class="btn btn-danger" onclick="capturarAcceso('SALIDA')">
+                    ❌ Registrar SALIDA
+                </button>
+            </div>
+            <div class="checkbox-container">
+                <label>
+                    <input type="checkbox" id="esInvitado">
+                    Es invitado (acompañado de socio)
+                </label>
+            </div>
+                    <div class="form-group">
+                        <label>Foto (opcional, archivo o cámara)</label>
+                        <input type="file" id="file-imagen-acceso" accept="image/*">
+                    </div>
+                <div id="resultado-acceso" class="result-box"></div>
+        </div>
+        <!-- Tab: Registro -->
+        <div id="tab-registro" class="tab-content">
+            <h2>Registrar Nuevo Socio</h2>
+            <form id="form-registro" class="form" onsubmit="event.preventDefault();registrarSocio();">
+                <div class="form-group">
+                    <label>Nombre Completo *</label>
+                    <input type="text" id="nombre" required placeholder="Juan Pérez">
+                </div>
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" id="email" required placeholder="juan@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="tel" id="telefono" placeholder="600123456">
+                </div>
+                <div class="form-group">
+                    <label>Foto (opcional, archivo o cámara)</label>
+                    <input type="file" id="file-imagen" accept="image/*">
+                </div>
+            </form>
+            <div class="camera-container">
+                <video id="video-registro" autoplay playsinline></video>
+                <canvas id="canvas-registro" style="display:none;"></canvas>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="iniciarCamara('registro')" type="button">
+                    📷 Iniciar Cámara
+                </button>
+                <button class="btn btn-success" onclick="registrarSocio()" type="submit">
+                    💾 Registrar Socio
+                </button>
+            </div>
+            <div id="resultado-registro" class="result-box"></div>
+        </div>
+        <!-- Tab: Salas -->
+        <div id="tab-salas" class="tab-content">
+            <h2>Seleccionar Sala</h2>
+            <div class="salas-grid">
+                <button class="sala-card" onclick="seleccionarSala(1, 'Musculación', 20)">
+                    <span class="sala-icon">💪</span>
+                    <span class="sala-nombre">Musculación</span>
+                    <span class="sala-aforo">Máx: 20</span>
+                </button>
+                <button class="sala-card" onclick="seleccionarSala(2, 'Fitness', 15)">
+                    <span class="sala-icon">🏃</span>
+                    <span class="sala-nombre">Fitness</span>
+                    <span class="sala-aforo">Máx: 15</span>
+                </button>
+                <button class="sala-card" onclick="seleccionarSala(3, 'Piscina', 24)">
+                    <span class="sala-icon">🏊</span>
+                    <span class="sala-nombre">Piscina</span>
+                    <span class="sala-aforo">Máx: 24</span>
+                </button>
+                <button class="sala-card" onclick="seleccionarSala(4, 'Cycling', 10)">
+                    <span class="sala-icon">🚴</span>
+                    <span class="sala-nombre">Cycling</span>
+                    <span class="sala-aforo">Máx: 10</span>
+                </button>
+                <button class="sala-card" onclick="seleccionarSala(5, 'Cafetería', 40)">
+                    <span class="sala-icon">☕</span>
+                    <span class="sala-nombre">Cafetería</span>
+                    <span class="sala-aforo">Máx: 40</span>
+                </button>
+            </div>
+            <div id="sala-seleccionada" style="display:none;" class="selected-sala">
+                <h3 id="sala-nombre-selected"></h3>
+                <p id="sala-aforo-info"></p>
+                <div class="button-group">
+                    <button class="btn btn-success" onclick="registrarMovimientoSala('ENTRADA')">
+                        ▶️ Entrar a Sala
+                    </button>
+                    <button class="btn btn-danger" onclick="registrarMovimientoSala('SALIDA')">
+                        ⏹️ Salir de Sala
+                    </button>
+                </div>
+            </div>
+            <div id="resultado-sala" class="result-box"></div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
