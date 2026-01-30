@@ -18,6 +18,7 @@ Este sistema permite registrar socios, controlar el acceso mediante reconocimien
   - **styles.css**: Estilos
 - **dashboard/**: Dashboard de asistencia y salas (opcional)
 - **local.settings.json**: Variables de entorno para Azure Functions
+- 
 
 ---
 
